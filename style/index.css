@@ -1,0 +1,147 @@
+:root {
+  --calc-width: 35rem;
+}
+
+html {
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  border: 0.2rem solid black;
+  box-shadow: 0rem 0rem 0.2rem grey;
+}
+
+button:active {
+  box-shadow: none;
+  border: 0.2rem solid grey;
+}
+
+.calculator {
+  padding: 1rem;
+  width: var(--calc-width);
+  border: 0.1rem solid grey;
+  border-radius: 0.1rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    "display display display display display display"
+    "n7 n8 n9 divide undo clear"
+    "n4 n5 n6 optimes openp closep"
+    "n1 n2 n3 minus opsquare radix"
+    "n0 comma percent plus equals equals";
+  gap: 1rem;
+}
+
+.display {
+  font-size: 1.25rem;
+}
+
+.operator {
+  background-color: seagreen;
+  color: whitesmoke;
+}
+
+.command {
+  background-color: darkred;
+  color: whitesmoke;
+}
+
+.display {
+  grid-area: display;
+}
+
+.divide {
+  grid-area: divide;
+}
+
+.times {
+  grid-area: optimes;
+}
+
+.undo {
+  grid-area: undo;
+}
+
+.minus {
+  grid-area: minus;
+}
+
+.plus {
+  grid-area: plus;
+}
+
+.open-paranthesis {
+  grid-area: openp;
+}
+
+.close-paranthesis {
+  grid-area: closep;
+}
+
+.radix {
+  grid-area: radix;
+}
+
+.square {
+  grid-area: opsquare;
+}
+
+.equals {
+  grid-area: equals;
+}
+
+._1 {
+  grid-area: n1;
+}
+
+._2 {
+  grid-area: n2;
+}
+
+._3 {
+  grid-area: n3;
+}
+
+._4 {
+  grid-area: n4;
+}
+
+._5 {
+  grid-area: n5;
+}
+
+._6 {
+  grid-area: n6;
+}
+
+._7 {
+  grid-area: n7;
+}
+
+._8 {
+  grid-area: n8;
+}
+
+._9 {
+  grid-area: n9;
+}
+
+.commma {
+  grid-area: comma;
+}
+
+.percent {
+  grid-area: percent;
+}
+
+.clear {
+  grid-area: clear;
+}
