@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Web-calculator</title>
     <link rel="stylesheet" type="text/css" href="./style/index.css" />
     <script defer type="module" src="./scripts/index.js"></script>
   </head>
@@ -12,25 +12,25 @@
     <div class="calculator">
       <input class="display" type="text" value="0" readonly />
       <button class="command clear">AC</button>
-      <button class="operator square">x&sup2;</button>
-      <button class="operator radix">&radic;</button>
-      <button class="operator divide">&divide;</button>
+      <button class="operator" id="square">x&sup2;</button>
+      <button class="operator" id="radix">&radic;</button>
+      <button class="operator" id="divide">&divide;</button>
       <button class="number nr-7">7</button>
       <button class="number nr-8">8</button>
       <button class="number nr-9">9</button>
-      <button class="operator times">&times;</button>
+      <button class="operator" id="times">&times;</button>
       <button class="number nr-4">4</button>
       <button class="number nr-5">5</button>
       <button class="number nr-6">6</button>
-      <button class="operator minus">&minus;</button>
+      <button class="operator" id="minus">&minus;</button>
       <button class="number nr-1">1</button>
       <button class="number nr-2">2</button>
       <button class="number nr-3">3</button>
-      <button class="operator plus">&plus;</button>
+      <button class="operator" id="plus">&plus;</button>
       <button class="number nr-0">0</button>
-      <button class="operator comma">&comma;</button>
-      <button class="operator percent">&percnt;</button>
-      <button class="operator equals">&equals;</button>
+      <button class="operator" id="comma">&comma;</button>
+      <button class="operator" id="percent">&percnt;</button>
+      <button id="equals">&equals;</button>
     </div>
   </body>
 </html>
