@@ -3,6 +3,7 @@ import * as calc from "./calculator.js"
 const RADIX = document.querySelector("#radix").id;
 const SQUARE = document.querySelector("#square").id;
 const PERCENT = document.querySelector("#percent").id;
+const COMMA = ".";
 
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
@@ -14,6 +15,7 @@ commaButton.addEventListener("click", commaClicked);
 equalsButton.addEventListener("click", equalsClicked);
 document.querySelectorAll(".number").forEach(button => button.addEventListener("click", numberClicked));
 document.querySelectorAll(".operator").forEach(button => button.addEventListener("click", operationClicked));
+window.addEventListener("keydown", (event) => document.querySelector(`button[data-key=\"${event.key}\"]`)?.click());
 
 let firstNumber = display.value;
 let secondNumber = "";
@@ -31,7 +33,7 @@ const isOperatorSet = () => currentOperator !== "";
 const isUnaryOperator = operator => operator === RADIX || operator === SQUARE || operator === PERCENT;
 const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
 const isUnaryOperationComplete = () => firstNumber !== "" && isUnaryOperator(currentOperator);
-const hasComma = number => number.indexOf(".") !== -1;
+const hasComma = number => number.indexOf(COMMA) !== -1;
 
 function evaluate() {
     if (isBinaryOperationComplete() || isUnaryOperationComplete()) {
@@ -53,7 +55,7 @@ function appendToDisplay(append) {
         display.value = secondNumber;
     }
     else {
-        if (firstNumber === "0" || isEvaluationDisplayed) {
+        if (append !== COMMA && (firstNumber === "0" || isEvaluationDisplayed)) {
             firstNumber = "";
             isEvaluationDisplayed = false;
         }
@@ -70,8 +72,7 @@ function numberClicked(event) {
 function commaClicked() {
     if (hasComma(display.value)) return;
     isEvaluationDisplayed = false;
-    const comma = ".";
-    appendToDisplay(comma);
+    appendToDisplay(COMMA);
 }
 
 function operationClicked(event) {
