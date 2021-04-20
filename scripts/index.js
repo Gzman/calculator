@@ -1,10 +1,12 @@
-import * as calculator from "./calculator.js"
+import * as calc from "./calculator.js"
 
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
+const commaButton = document.querySelector("#comma");
 const equalsButton = document.querySelector("#equals");
 
 clearButton.addEventListener("click", clearClicked);
+commaButton.addEventListener("click", commaClicked);
 equalsButton.addEventListener("click", equalsClicked);
 document.querySelectorAll(".number").forEach(button => button.addEventListener("click", numberClicked));
 document.querySelectorAll(".operator").forEach(button => button.addEventListener("click", operationClicked));
@@ -20,17 +22,16 @@ const reset = () => {
     secondNumber = "";
     operator = "";
 };
-
-const calculate = () => calculator.operate(parseInt(firstNumber), parseInt(secondNumber), calculator.getOperatorByName(operator));
+const calculate = () => calc.operate(parseFloat(firstNumber), parseFloat(secondNumber), calc.getOperatorByName(operator));
 const isOperatorSet = () => operator !== "";
 const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
-const isUnaryOperationComplete = () => firstNumber !== "" && (operator === "radix" || operator === "square");
-const roundNumber = number => Math.round(number * 1000) / 1000;
+const isUnaryOperationComplete = () => firstNumber !== "" && (operator === "radix" || operator === "square" || operator === "percent");
+const hasComma = number => number.indexOf(".") !== -1;
 
 function evaluate() {
     if (isBinaryOperationComplete() || isUnaryOperationComplete()) {
-        let result = roundNumber(calculate());
-        if (result === Infinity) {
+        let result = calculate();
+        if (result === null) {
             alert("You can't divide by zero!");
             result = 0;
         }
@@ -41,10 +42,9 @@ function evaluate() {
     }
 }
 
-function numberClicked(event) {
-    const number = event.target.textContent;
+function appendToDisplay(append) {
     if (isOperatorSet()) {
-        secondNumber += number;
+        secondNumber += append;
         display.value = secondNumber;
     }
     else {
@@ -52,9 +52,20 @@ function numberClicked(event) {
             firstNumber = "";
             isEvaluationDisplayed = false;
         }
-        firstNumber += number;
+        firstNumber += append;
         display.value = firstNumber;
     }
+}
+
+function numberClicked(event) {
+    const number = event.target.textContent;
+    appendToDisplay(number);
+}
+
+function commaClicked() {
+    if(hasComma(display.value)) return;
+    const comma = ".";
+    appendToDisplay(comma);
 }
 
 function operationClicked(event) {
