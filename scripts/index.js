@@ -69,8 +69,8 @@ function commaClicked() {
 }
 
 function operationClicked(event) {
-    operator = event.target.id;
     evaluate();
+    operator = event.target.id;
 }
 
 function clearClicked() {
