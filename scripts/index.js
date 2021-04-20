@@ -4,6 +4,7 @@ const RADIX = document.querySelector("#radix").id;
 const SQUARE = document.querySelector("#square").id;
 const PERCENT = document.querySelector("#percent").id;
 
+
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
 const commaButton = document.querySelector("#comma");
@@ -15,22 +16,26 @@ equalsButton.addEventListener("click", equalsClicked);
 document.querySelectorAll(".number").forEach(button => button.addEventListener("click", numberClicked));
 document.querySelectorAll(".operator").forEach(button => button.addEventListener("click", operationClicked));
 
+
 let firstNumber = display.value;
 let secondNumber = "";
-let operator = "";
+let currentOperator = "";
 let isEvaluationDisplayed = false;
+
 
 const reset = () => {
     display.value = "0";
     firstNumber = display.value;
     secondNumber = "";
-    operator = "";
+    currentOperator = "";
 };
-const calculate = () => calc.operate(parseFloat(firstNumber), parseFloat(secondNumber), calc.getOperatorByName(operator));
-const isOperatorSet = () => operator !== "";
+const calculate = () => calc.operate(parseFloat(firstNumber), parseFloat(secondNumber), calc.getOperatorByName(currentOperator));
+const isOperatorSet = () => currentOperator !== "";
+const isUnaryOperator = operator => operator === RADIX || operator === SQUARE || operator === PERCENT;
 const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
-const isUnaryOperationComplete = () => firstNumber !== "" && (operator === RADIX || operator === SQUARE || operator === PERCENT);
+const isUnaryOperationComplete = () => firstNumber !== "" && isUnaryOperator(currentOperator);
 const hasComma = number => number.indexOf(".") !== -1;
+
 
 function evaluate() {
     if (isBinaryOperationComplete() || isUnaryOperationComplete()) {
@@ -67,14 +72,20 @@ function numberClicked(event) {
 }
 
 function commaClicked() {
-    if(hasComma(display.value)) return;
+    if (hasComma(display.value)) return;
     const comma = ".";
     appendToDisplay(comma);
 }
 
 function operationClicked(event) {
-    evaluate();
-    operator = event.target.id;
+    const operator = event.target.id;
+    if (isUnaryOperator(operator)) {
+        currentOperator = operator;
+        evaluate();
+    } else {
+        evaluate();
+        currentOperator = operator;
+    }
 }
 
 function clearClicked() {
