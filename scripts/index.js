@@ -4,7 +4,6 @@ const RADIX = document.querySelector("#radix").id;
 const SQUARE = document.querySelector("#square").id;
 const PERCENT = document.querySelector("#percent").id;
 
-
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
 const commaButton = document.querySelector("#comma");
@@ -16,12 +15,10 @@ equalsButton.addEventListener("click", equalsClicked);
 document.querySelectorAll(".number").forEach(button => button.addEventListener("click", numberClicked));
 document.querySelectorAll(".operator").forEach(button => button.addEventListener("click", operationClicked));
 
-
 let firstNumber = display.value;
 let secondNumber = "";
 let currentOperator = "";
 let isEvaluationDisplayed = false;
-
 
 const reset = () => {
     display.value = "0";
@@ -35,7 +32,6 @@ const isUnaryOperator = operator => operator === RADIX || operator === SQUARE ||
 const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
 const isUnaryOperationComplete = () => firstNumber !== "" && isUnaryOperator(currentOperator);
 const hasComma = number => number.indexOf(".") !== -1;
-
 
 function evaluate() {
     if (isBinaryOperationComplete() || isUnaryOperationComplete()) {
@@ -73,6 +69,7 @@ function numberClicked(event) {
 
 function commaClicked() {
     if (hasComma(display.value)) return;
+    isEvaluationDisplayed = false;
     const comma = ".";
     appendToDisplay(comma);
 }
