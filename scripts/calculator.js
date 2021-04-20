@@ -24,4 +24,4 @@ const divide = (a, b) => a / b;
 
 const square = (a) => a ** 2;
 
-const radix = (a) => Math.radix(a);
+const radix = (a) => Math.sqrt(a);

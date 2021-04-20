@@ -1,4 +1,4 @@
-import { operate, getOperatorByName } from "./calculator.js"
+import * as calculator from "./calculator.js"
 
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
@@ -21,16 +21,15 @@ const reset = () => {
     operator = "";
 };
 
-const calculate = () => operate(parseInt(firstNumber), parseInt(secondNumber), getOperatorByName(operator));
-
-// const isUnaryOperator = (operator) => operator === "square" || operator === "radix";
-
-const roundNumber = number => Math.round(number * 100) / 100;
+const calculate = () => calculator.operate(parseInt(firstNumber), parseInt(secondNumber), calculator.getOperatorByName(operator));
+const isOperatorSet = () => operator !== "";
+const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
+const isUnaryOperationComplete = () => firstNumber !== "" && (operator === "radix" || operator === "square");
+const roundNumber = number => Math.round(number * 1000) / 1000;
 
 function evaluate() {
-    if (firstNumber !== "" && secondNumber !== "" && operator !== "") {
+    if (isBinaryOperationComplete() || isUnaryOperationComplete()) {
         let result = roundNumber(calculate());
-        console.log("result", result);
         if (result === Infinity) {
             alert("You can't divide by zero!");
             result = 0;
@@ -44,7 +43,11 @@ function evaluate() {
 
 function numberClicked(event) {
     const number = event.target.textContent;
-    if (operator === "") {
+    if (isOperatorSet()) {
+        secondNumber += number;
+        display.value = secondNumber;
+    }
+    else {
         if (firstNumber === "0" || isEvaluationDisplayed) {
             firstNumber = "";
             isEvaluationDisplayed = false;
@@ -52,15 +55,10 @@ function numberClicked(event) {
         firstNumber += number;
         display.value = firstNumber;
     }
-    else {
-        secondNumber += number;
-        display.value = secondNumber;
-    }
 }
 
 function operationClicked(event) {
     operator = event.target.id;
-    console.log(operator);
     evaluate();
 }
 
