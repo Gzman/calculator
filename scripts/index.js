@@ -1,5 +1,9 @@
 import * as calc from "./calculator.js"
 
+const RADIX = document.querySelector("#radix").id;
+const SQUARE = document.querySelector("#square").id;
+const PERCENT = document.querySelector("#percent").id;
+
 const display = document.querySelector(".display");
 const clearButton = document.querySelector(".clear");
 const commaButton = document.querySelector("#comma");
@@ -25,7 +29,7 @@ const reset = () => {
 const calculate = () => calc.operate(parseFloat(firstNumber), parseFloat(secondNumber), calc.getOperatorByName(operator));
 const isOperatorSet = () => operator !== "";
 const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
-const isUnaryOperationComplete = () => firstNumber !== "" && (operator === "radix" || operator === "square" || operator === "percent");
+const isUnaryOperationComplete = () => firstNumber !== "" && (operator === RADIX || operator === SQUARE || operator === PERCENT);
 const hasComma = number => number.indexOf(".") !== -1;
 
 function evaluate() {
