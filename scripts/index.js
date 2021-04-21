@@ -10,30 +10,43 @@ const clearButton = document.querySelector(".clear");
 const commaButton = document.querySelector("#comma");
 const equalsButton = document.querySelector("#equals");
 
+display.addEventListener("change", displayValueChanged);
 clearButton.addEventListener("click", clearClicked);
 commaButton.addEventListener("click", commaClicked);
 equalsButton.addEventListener("click", equalsClicked);
 document.querySelectorAll(".number").forEach(button => button.addEventListener("click", numberClicked));
 document.querySelectorAll(".operator").forEach(button => button.addEventListener("click", operationClicked));
-window.addEventListener("keydown", (event) => document.querySelector(`button[data-key=\"${event.key}\"]`)?.click());
+window.addEventListener("keydown", event => document.querySelector(`button[data-key=\"${event.key}\"]`)?.click());
 
-let firstNumber = display.value;
-let secondNumber = "";
+let firstOperand = display.value;
+let secondOperand = "";
 let currentOperator = "";
-let isEvaluationDisplayed = false;
+let overwriteDisplay = false;
 
-const reset = () => {
-    display.value = "0";
-    firstNumber = display.value;
-    secondNumber = "";
-    currentOperator = "";
-};
-const calculate = () => calc.operate(parseFloat(firstNumber), parseFloat(secondNumber), calc.getOperatorByName(currentOperator));
+const calculate = () => calc.operate(parseFloat(firstOperand), parseFloat(secondOperand), calc.getOperatorByName(currentOperator));
+const hasComma = number => number.indexOf(COMMA) !== -1;
 const isOperatorSet = () => currentOperator !== "";
 const isUnaryOperator = operator => operator === RADIX || operator === SQUARE || operator === PERCENT;
-const isBinaryOperationComplete = () => firstNumber !== "" && secondNumber !== "" && isOperatorSet();
-const isUnaryOperationComplete = () => firstNumber !== "" && isUnaryOperator(currentOperator);
-const hasComma = number => number.indexOf(COMMA) !== -1;
+const isBinaryOperationComplete = () => firstOperand !== "" && secondOperand !== "" && isOperatorSet();
+const isUnaryOperationComplete = () => firstOperand !== "" && isUnaryOperator(currentOperator);
+
+function reset() {
+    display.value = "0";
+    firstOperand = display.value;
+    secondOperand = "";
+    currentOperator = "";
+};
+
+function writeToDisplay(write) {
+    if (overwriteDisplay || (display.value === "0" && write !== COMMA)) display.value = "";
+    display.value += write;
+    display.dispatchEvent(new Event("change"));
+}
+
+function displayValueChanged() {
+    if (isOperatorSet()) secondOperand = display.value;
+    else firstOperand = display.value;
+}
 
 function evaluate() {
     if (isBinaryOperationComplete() || isUnaryOperationComplete()) {
@@ -43,39 +56,25 @@ function evaluate() {
             result = 0;
         }
         reset();
-        firstNumber = result;
-        display.value = firstNumber;
-        isEvaluationDisplayed = true;
-    }
-}
-
-function appendToDisplay(append) {
-    if (isOperatorSet()) {
-        secondNumber += append;
-        display.value = secondNumber;
-    }
-    else {
-        if (append !== COMMA && (firstNumber === "0" || isEvaluationDisplayed)) {
-            firstNumber = "";
-            isEvaluationDisplayed = false;
-        }
-        firstNumber += append;
-        display.value = firstNumber;
+        writeToDisplay(result);
+        overwriteDisplay = true;
     }
 }
 
 function numberClicked(event) {
     const number = event.target.textContent;
-    appendToDisplay(number);
+    writeToDisplay(number);
+    overwriteDisplay = false;
 }
 
 function commaClicked() {
     if (hasComma(display.value)) return;
-    isEvaluationDisplayed = false;
-    appendToDisplay(COMMA);
+    overwriteDisplay = false;
+    writeToDisplay(COMMA);
 }
 
 function operationClicked(event) {
+    overwriteDisplay = true;
     const operator = event.target.id;
     if (isUnaryOperator(operator)) {
         currentOperator = operator;
