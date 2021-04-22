@@ -27,16 +27,15 @@ button {
 }
 
 button:hover {
-  box-shadow: 0rem 0rem 0.3rem #00aaa9;
-  border: 0.2rem solid #00aaa9;
+  background-color: #c4c9b7;
 }
 
 button:active {
-  box-shadow: none;
+  border-width: 0.175rem;
 }
 
 .calculator {
-  margin: 8rem auto;
+  margin: 10rem auto;
   padding: 1rem;
   background-color: darkslateblue;
   width: var(--calc-width);
@@ -49,14 +48,14 @@ button:active {
 }
 
 .display {
-  height: 4rem;
+  height: 4.5rem;
   grid-column: 1 / 5;
-  border: 0.125 solid black;
+  border: 0.125rem solid black;
   font-size: 1.75rem;
-  transition: all 0.017s ease-out;
+  transition: color 0.017s;
 }
 
-.animate-display {
+.blinck-display {
   color: white;
 }
 
@@ -65,12 +64,36 @@ button:active {
   color: #f3eada;
 }
 
+.operator:hover {
+  background-color: #8471a0;
+}
+
 .command {
   background-color: #a6516c;
   color: #f3eada;
 }
 
+.command:hover {
+  background-color: #ad584a;
+}
+
 #equals {
   background-color: #4da693;
   color: #f3eada;
+}
+
+#equals:hover {
+  background-color: #009ba3;
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 340px) {
+  html {
+    font-size: 10px;
+  }
 }

@@ -96,9 +96,9 @@ function equalsClicked() {
 }
 
 function animateDisplay() {
-    display.classList.add("animate-display");
+    display.classList.add("blinck-display");
 }
 
 function animateDisplayEnd() {
-    display.classList.remove("animate-display");
+    display.classList.remove("blinck-display");
 }
