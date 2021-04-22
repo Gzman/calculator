@@ -10,50 +10,64 @@ html {
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f3eada;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 button {
-  height: 4rem;
+  height: 5rem;
   font-size: 1.25rem;
-  background-color: whitesmoke;
+  color: darkslateblue;
+  background-color: #f3eada;
   border: 0.125rem solid black;
-  border-radius: 0.3rem;
-  box-shadow: 0rem 0rem 0.2rem grey;
+  box-shadow: 0rem 0rem 0.2rem black;
+}
+
+button:hover {
+  box-shadow: 0rem 0rem 0.4rem #00aaa9;
+  border: 0.2rem solid #00aaa9;
 }
 
 button:active {
-  border: 0.1rem solid black;
   box-shadow: none;
 }
 
 .calculator {
+  margin: 8rem auto;
   padding: 1rem;
-  background-color: khaki;
+  background-color: darkslateblue;
   width: var(--calc-width);
-  border: 0.1rem solid grey;
-  border-radius: 0.3rem;
+  border: 0.125rem solid black;
+  border-radius: 0.5rem;
+  box-shadow: 0.125rem 0.125rem 0.2rem black;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .display {
   height: 4rem;
   grid-column: 1 / 5;
-  border: 0.2rem solid black;
+  border: 0.125 solid black;
   font-size: 1.75rem;
 }
 
 .operator {
-  background-color: seagreen;
-  color: whitesmoke;
+  background-color: #7681a8;
+  color: #f3eada;
 }
 
 .command {
-  background-color: darkred;
-  color: whitesmoke;
+  background-color: #a6516c;
+  color: #f3eada;
+}
+
+#equals {
+  background-color: #4da693;
+  color: #f3eada;
 }
