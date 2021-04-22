@@ -11,6 +11,7 @@ const commaButton = document.querySelector("#comma");
 const equalsButton = document.querySelector("#equals");
 
 display.addEventListener("change", displayValueChanged);
+display.addEventListener("transitionend", animateDisplayEnd);
 clearButton.addEventListener("click", clearClicked);
 commaButton.addEventListener("click", commaClicked);
 equalsButton.addEventListener("click", equalsClicked);
@@ -75,6 +76,7 @@ function commaClicked() {
 
 function operationClicked(event) {
     overwriteDisplay = true;
+    animateDisplay();
     const operator = event.target.id;
     if (isUnaryOperator(operator)) {
         currentOperator = operator;
@@ -91,4 +93,12 @@ function clearClicked() {
 
 function equalsClicked() {
     evaluate();
+}
+
+function animateDisplay() {
+    display.classList.add("animate-display");
+}
+
+function animateDisplayEnd() {
+    display.classList.remove("animate-display");
 }

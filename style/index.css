@@ -53,6 +53,11 @@ button:active {
   grid-column: 1 / 5;
   border: 0.125 solid black;
   font-size: 1.75rem;
+  transition: all 0.017s ease-out;
+}
+
+.animate-display {
+  color: white;
 }
 
 .operator {
