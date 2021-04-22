@@ -24,11 +24,10 @@ button {
   color: darkslateblue;
   background-color: #f3eada;
   border: 0.125rem solid black;
-  box-shadow: 0rem 0rem 0.2rem black;
 }
 
 button:hover {
-  box-shadow: 0rem 0rem 0.4rem #00aaa9;
+  box-shadow: 0rem 0rem 0.3rem #00aaa9;
   border: 0.2rem solid #00aaa9;
 }
 
@@ -43,7 +42,6 @@ button:active {
   width: var(--calc-width);
   border: 0.125rem solid black;
   border-radius: 0.5rem;
-  box-shadow: 0.125rem 0.125rem 0.2rem black;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
